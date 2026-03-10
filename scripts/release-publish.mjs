@@ -51,10 +51,12 @@ function runStep(name, args) {
 }
 
 function runGit(args, inherit = false) {
-  return execFileSync("git", args, {
+  const output = execFileSync("git", args, {
     stdio: inherit ? "inherit" : ["ignore", "pipe", "pipe"],
     encoding: "utf8",
-  }).trim();
+  });
+
+  return typeof output === "string" ? output.trim() : "";
 }
 
 function fail(message) {
