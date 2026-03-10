@@ -24,6 +24,7 @@
     "bench:json": "mkdir -p ./bench/results && vitest bench --run --outputJson ./bench/results/latest.json",
     "prepack": "npm run clean && npm run build",
     "prepublishOnly": "npm run typecheck && npm test",
+    "release:publish": "node ./scripts/release-publish.mjs",
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run"
   },
