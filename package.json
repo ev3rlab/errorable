@@ -1,6 +1,6 @@
 {
   "name": "@ev3rlit/errorable",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "TypeScript error handling inspired by Go errors and the Go samber/oops library.",
   "type": "module",
   "main": "./dist/index.js",
