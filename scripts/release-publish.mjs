@@ -1,9 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 
-const packageJson = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
-const version = packageJson.version;
-const tag = `v${version}`;
+const releaseType = process.argv[2];
 const branch = runGit(["rev-parse", "--abbrev-ref", "HEAD"]);
 
 ensureCleanWorktree();
@@ -12,11 +10,23 @@ if (branch !== "main") {
   fail(`release:publish must run from main. Current branch: ${branch}`);
 }
 
+if (releaseType) {
+  bumpVersion(releaseType);
+}
+
+const version = readPackageVersion();
+const tag = `v${version}`;
+
 ensureTagDoesNotExist(tag);
 
 runStep("typecheck", ["run", "typecheck"]);
 runStep("test", ["test"]);
 runStep("build", ["run", "build"]);
+
+if (releaseType) {
+  runGit(["add", "package.json", "package-lock.json"], true);
+  runGit(["commit", "-m", `Release ${tag}`], true);
+}
 
 runGit(["tag", "-a", tag, "-m", `Release ${tag}`], true);
 runGit(["push", "origin", branch], true);
@@ -43,6 +53,20 @@ function ensureTagDoesNotExist(tagName) {
   if (remoteTag !== "") {
     fail(`Tag ${tagName} already exists on origin.`);
   }
+}
+
+function bumpVersion(type) {
+  const allowedTypes = new Set(["patch", "minor", "major", "prerelease"]);
+  const args = allowedTypes.has(type)
+    ? ["version", type, "--no-git-tag-version"]
+    : ["version", type, "--no-git-tag-version", "--allow-same-version"];
+
+  runStep(`version (${type})`, args);
+}
+
+function readPackageVersion() {
+  const packageJson = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
+  return packageJson.version;
 }
 
 function runStep(name, args) {

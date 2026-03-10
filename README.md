@@ -229,6 +229,34 @@ Useful fields in `bench/results/latest.json`:
 - `rme`: relative margin of error
 - `sampleCount`: number of collected samples
 
+## Publishing
+
+Use the release helper scripts to let the repository handle version bump, release commit, tag creation, and tag push:
+
+```sh
+npm run release:patch
+npm run release:minor
+npm run release:major
+```
+
+These commands:
+
+- require a clean git worktree
+- require the current branch to be `main`
+- bump `package.json` and `package-lock.json`
+- run `typecheck`, `test`, and `build`
+- create a release commit
+- create an annotated `vX.Y.Z` tag
+- push `main` and the tag to `origin`
+
+After the tag is pushed, GitHub Actions publishes the package to npm.
+
+If you already changed the version manually and only want to publish that exact version, use:
+
+```sh
+npm run release:publish
+```
+
 ## Notes
 
 - The project targets Node.js and uses native `Error.cause`.

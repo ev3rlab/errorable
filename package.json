@@ -25,6 +25,9 @@
     "prepack": "npm run clean && npm run build",
     "prepublishOnly": "npm run typecheck && npm test",
     "release:publish": "node ./scripts/release-publish.mjs",
+    "release:patch": "node ./scripts/release-publish.mjs patch",
+    "release:minor": "node ./scripts/release-publish.mjs minor",
+    "release:major": "node ./scripts/release-publish.mjs major",
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run"
   },
