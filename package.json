@@ -1,0 +1,37 @@
+{
+  "name": "errorable",
+  "version": "0.1.0",
+  "description": "TypeScript error handling inspired by Go errors and the Go samber/oops library.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "bench": "vitest bench --run",
+    "bench:json": "mkdir -p ./bench/results && vitest bench --run --outputJson ./bench/results/latest.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "keywords": [
+    "errors",
+    "typescript",
+    "golang",
+    "errorable",
+    "error-handling"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.0.0"
+  }
+}
