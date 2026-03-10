@@ -17,13 +17,13 @@ This is not an official port of `samber/oops`. It is a TypeScript library that a
 ## Install
 
 ```sh
-npm install
+npm install @ev3rlit/errorable
 ```
 
 ## Quick start
 
 ```ts
-import { errorable, is, as, join } from "errorable";
+import { errorable, is, as, join } from "@ev3rlit/errorable";
 
 const err = errorable()
   .in("user-service")
@@ -81,7 +81,7 @@ In normal TypeScript application code, prefer `Error` as your external contract.
 Example:
 
 ```ts
-import { errorable } from "errorable";
+import { errorable } from "@ev3rlit/errorable";
 
 function loadUser(): Error {
   return errorable()
@@ -104,7 +104,7 @@ Example:
 
 ```ts
 import { err, ok, type Result } from "neverthrow";
-import { errorable } from "errorable";
+import { errorable } from "@ev3rlit/errorable";
 
 type User = {
   id: string;

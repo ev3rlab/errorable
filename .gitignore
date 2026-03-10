@@ -2,3 +2,5 @@ node_modules
 dist
 coverage
 bench/results
+.vscode
+ev3rlit-errorable-*

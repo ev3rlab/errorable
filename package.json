@@ -1,5 +1,5 @@
 {
-  "name": "errorable",
+  "name": "@ev3rlit/errorable",
   "version": "0.1.0",
   "description": "TypeScript error handling inspired by Go errors and the Go samber/oops library.",
   "type": "module",
@@ -14,10 +14,16 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
     "build": "tsc -p tsconfig.build.json",
     "bench": "vitest bench --run",
     "bench:json": "mkdir -p ./bench/results && vitest bench --run --outputJson ./bench/results/latest.json",
+    "prepack": "npm run clean && npm run build",
+    "prepublishOnly": "npm run typecheck && npm test",
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run"
   },
